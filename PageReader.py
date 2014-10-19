@@ -132,7 +132,6 @@ def play():
             donePlaying=True
     print('done')
 def edit(links):
-    print(type(links))
     print("Type in a word to delete it. Say 'Iterate through all' to iterate through every word. Say slice[<start>:<end>] to slice the bank. Say 'I am done' to quit")
     done = False
     toRemove=[]
