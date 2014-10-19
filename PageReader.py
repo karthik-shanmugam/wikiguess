@@ -76,14 +76,18 @@ def play():
             print('_'*80)
             [print(link[1]) for link in links]
             print('_'*80)
-        print('would you like to edit the word bank? (Y/N)')
-        response=input()
-        if response=='Y':
-            links=edit(links)
-            input("press enter to see new word bank...")
-            print('_'*80)
-            [print(link[1]) for link in links]
-            print('_'*80)        
+        doneEditing=False
+        while(not doneEditing):   
+            print('would you like to edit the word bank? (Y/N)')
+            response=input()
+            if response=='Y':
+                links=edit(links)
+                input("press enter to see new word bank...")
+                print('_'*80)
+                [print(link[1]) for link in links]
+                print('_'*80)
+            else:
+                doneEditing=True        
         doneUrl=False
         input("press enter to start a round...")
         while(not doneUrl):
@@ -95,17 +99,19 @@ def play():
             won=False
             #print(chosen[0],chosen[1])
             guesses=0
+            given=0
             clues=[]
             while(not won):
                 clues.append(random.choice(text))
                 print('clue:',clues[-1])
                 guesses+=1
+                given+=1
                 guess=input("guess "+str(guesses)+": ")
                 if guess==chosen[1]:
                     won=True
-                    print('Congrats! You took',guesses,'guesses!')
+                    print('Congrats! You took',guesses,'guesses and',given,'clues!')
                 if guess=='I give up':
-                    print('Better luck next time! You attempted',guesses,'times.')
+                    print('Better luck next time! You attempted',guesses,'times with',given,'clues.')
                     print(chosen[1])
                     won=True
                 if guess=='Show bank':
@@ -138,7 +144,7 @@ def edit(links):
             return links
         if response=='I am done':
             purge(links,toRemove)
-            return
+            return links
         if response=='Iterate through all':
             print("say anything (besides 'I am done') to remove each item")
             i=0
@@ -146,7 +152,7 @@ def edit(links):
                 response=input(links[i][1]+": ")
                 if response=='I am done':
                     purge(links,toRemove)
-                    return
+                    return links
                 if len(response):
                     toRemove.append(links[i][1])
                 i+=1
