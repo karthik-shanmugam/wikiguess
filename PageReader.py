@@ -66,10 +66,12 @@ def getLinks(url):
     return parser.links
 def play():
     print("wikipedia guessing game!")
+    print()
     donePlaying=False
     while(not donePlaying):
         url='http://en.wikipedia.org/wiki/'+input("Enter a url to pull links from... http://en.wikipedia.org/wiki/")
         links = getLinks(url)
+        print()
         print('word bank created... would you like to see the word bank? (Y/N)')
         response=input()
         if response=='Y':
@@ -77,11 +79,13 @@ def play():
             [print(link[1]) for link in links]
             print('_'*80)
         doneEditing=False
-        while(not doneEditing):   
+        while(not doneEditing):  
+            print() 
             print('would you like to edit the word bank? (Y/N)')
             response=input()
             if response=='Y':
                 links=edit(links)
+                print()
                 input("press enter to see new word bank...")
                 print('_'*80)
                 [print(link[1]) for link in links]
@@ -89,8 +93,10 @@ def play():
             else:
                 doneEditing=True        
         doneUrl=False
+        print()
         input("press enter to start a round...")
         while(not doneUrl):
+            print()
             print("round started. Say 'I give up' to give up. Say 'Show bank' to see word bank. Say 'Show clues' to see all clues.")
             chosen=random.choice(links)
             text=find_data.ParseURL('http://en.wikipedia.org'+str(chosen[0]))
@@ -103,6 +109,7 @@ def play():
             clues=[]
             while(not won):
                 clues.append(random.choice(text))
+                print()
                 print('clue:',clues[-1])
                 guesses+=1
                 given+=1
@@ -132,7 +139,9 @@ def play():
             donePlaying=True
     print('done')
 def edit(links):
+    print()
     print("Type in a word to delete it. Say 'Iterate through all' to iterate through every word. Say slice[<start>:<end>] to slice the bank. Say 'I am done' to quit")
+    print()
     done = False
     toRemove=[]
     while (not done):
@@ -146,6 +155,7 @@ def edit(links):
             return links
         if response=='Iterate through all':
             print("say anything (besides 'I am done') to remove each item")
+            print()
             i=0
             while(not done and i<len(links)):
                 response=input(links[i][1]+": ")
