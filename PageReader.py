@@ -91,7 +91,7 @@ def play():
         doneUrl=False
         input("press enter to start a round...")
         while(not doneUrl):
-            print("round started. Say 'I give up' to give up. Say 'Show bank' to see word bank. Say 'Show clues to see all clues.")
+            print("round started. Say 'I give up' to give up. Say 'Show bank' to see word bank. Say 'Show clues' to see all clues.")
             chosen=random.choice(links)
             text=find_data.ParseURL('http://en.wikipedia.org'+str(chosen[0]))
             #print(text)
@@ -156,6 +156,8 @@ def edit(links):
                 if len(response):
                     toRemove.append(links[i][1])
                 i+=1
+            purge(links,toRemove)
+            return links
         toRemove.append(response)
     return links
 def purge(links,keys):
